@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, FormControl, Grid, Input, Text } from "@chakra-ui/react";
+import { Button, Flex, FormControl, Grid, Input, Text } from "@chakra-ui/react";
 import { useTheme } from "@chakra-ui/react";
 import { useUpdateUserContext } from "../context/Context";
 
@@ -54,11 +54,13 @@ const LoginLayout = () => {
 						mt={'auto'}
 						mb={'10vh'}
 					>
+						<form onSubmit={onSubmit}>
 						<FormControl display={'grid'} gap={'4vh'}>
 							<Input placeholder='User' variant={'flushed'} type='name' focusBorderColor={theme.colors.primary} onChange={onChangeName}/>
 							<Input placeholder='Password'variant={'flushed'} type='password'  focusBorderColor={theme.colors.primary} onChange={onChangePassword}/>
-							<Input type={'submit'} mt={'5vh'} size={'lg'} _hover={{ bg: theme.colors.primary }} focusBorderColor='none' onClick={onSubmit}/>
+							<Input type={'submit'} mt={'5vh'} size={'lg'} _hover={{ bg: theme.colors.primary }} focusBorderColor='none' />
 						</FormControl>
+						</form>
 					</Grid>
 					<Text
 						mb={'10vh'}

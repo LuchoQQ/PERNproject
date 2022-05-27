@@ -9,7 +9,7 @@ export const useLoggedContext = () => {
     return useContext(LoggedContext);
 }
 
-export const useUpdateContext = () => {
+export const useUpdateLoggedContext = () => {
     return useContext(UpdateContext);
 }
 

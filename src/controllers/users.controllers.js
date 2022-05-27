@@ -108,16 +108,23 @@ export const getUserActivity = async (req, res) => {
 	}
 }
 
-export const getUsername = async (req, res) => {
-	const { username } = req.params;
+export const verifyUser = async (req, res) => {
+	const { name, password } = req.body;
 	try {
-		const result = await User.findOne({ where: { name: username } })
-		if (!result) {
-			res.send('User not found');
+		const user = await User.findOne({ where: { name: name } });
+		if (!user) {
+			res.status(404).json({ msg: "User not found" });
 		} else {
-			res.json(result);
+			if (user.password === password && name !== undefined) {
+				res.json(user);
+			} else {
+				res.status(401).json({ msg: "Invalid credentials" });
+			}
 		}
 	} catch (error) {
-		res.send(error)
+		res.status(500).json({
+			status: "500",
+			message: error.message,
+		});
 	}
 }
