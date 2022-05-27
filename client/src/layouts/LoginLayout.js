@@ -5,6 +5,7 @@ import { useUpdateUserContext } from "../context/Context";
 
 
 const LoginLayout = () => {
+
 	const theme = useTheme();
 
 	const [name, setName] = useState('')
@@ -67,6 +68,9 @@ const LoginLayout = () => {
 					>
 						Register here.
 					</Text>
+					{
+						
+					}
 				</Flex>
 			</Grid>
 		</>
