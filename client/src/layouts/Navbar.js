@@ -1,37 +1,47 @@
-import React from 'react'
-import { Flex, Grid, Box, Text, Image, Button, Link, Icon, useColorMode, theme} from '@chakra-ui/react'
-import MenuLink from '../components/MenuLink'
-import { useUserContext } from '../context/Context'
-import { useTheme } from '@emotion/react'
+import React from "react";
+import {
+	Flex,
+	Grid,
+	Box,
+	Text,
+	Image,
+	Button,
+	Link,
+	Icon,
+	useColorMode,
+	theme,
+} from "@chakra-ui/react";
+import MenuLink from "../components/MenuLink";
+import { useUserContext } from "../context/Context";
+import { useTheme } from "@emotion/react";
+import { AiFillHome } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+	const navigate = useNavigate();
+	const user = useUserContext();
 
-    const name = useUserContext().name
+	const name = useUserContext().name;
 
-    const theme = useTheme()
+	const theme = useTheme();
 
-    return (
-    <>
-        <Grid
-            justifyContent={'flex-end'}
-            fontFamily={theme.fonts.text.Spartan}
-            py={'1vh'}
-            h={'auto'}
-            width={'100%'}
-            autoFlow={'column'}
-            alignItems={'center'}
-            bg={theme.colors.primary}
-        >
-            <Text
-                mr={'2vw'}
-                fontSize={['1rem', '1.5rem']}
-                color={theme.colors.backgroundSecondary}
-            >{` ${name}`}</Text>
-            
-            <Flex w={'50px'} h={'50px'} borderRadius={'100%'} bg={theme.colors.backgroundSecondary}/>
-        </Grid>
-    </>
-  )
-}
+	return (
+		<>
+			<Flex
+                pt={'5vh'}
+				width={"100%"}
+				bg={theme.colors.background}
+                h={'52vh'}
+			>
+				<Flex mx={"5vw"} flexDir={'column'} color={theme.colors.text} h={'50px'}>
+					<Text fontSize={'2rem'}>Total Saving</Text>
+					<Text fontSize={"6rem"}>{`$${user.balance}`}</Text>
+                    <Text fontSize={'1.6rem'} color={theme.colors.text}>{`Welcome, ${user.name}!`}</Text>
+				</Flex>
 
-export default Navbar
+			</Flex>
+		</>
+	);
+};
+
+export default Navbar;

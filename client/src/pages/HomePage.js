@@ -1,75 +1,95 @@
-import React from 'react'
-import { Text, Grid, Flex, Box } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
+import { Text, Grid, Flex, Box, Icon, Button } from '@chakra-ui/react'
 import { useTheme } from '@chakra-ui/react'
 import Navbar from '../layouts/Navbar'
 import { useUserContext } from '../context/Context'
-const HomePage = () => {
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import Container from '../components/Container'
+import UserAction from '../components/UserAction'
+import Activity from './Activity'
 
+const HomePage = () => {
   const theme = useTheme()
   const user = useUserContext()
-  console.log(user)
+  const navigate = useNavigate()
+  const [activity, setActivity] = useState([])
+
+  const handleClick = () => {
+    navigate('/activity')
+  }
+
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url:  `http://localhost:3005/users/${user.id}/activity`
+    }).then(res => {
+      setActivity(res.data)
+  })}, [])
+
+
   return (
     <>
-        <Grid
-          width={'100vw'}
-          height={'100vh'}
-          bg={theme.colors.background}
-          justifyContent={'center'}
-          fontFamily={theme.fonts.text.Spartan}
-        >
-          <Flex
-            width={['100vw', '100vw', '50vw', '50vw']}
-            height={'100vh'}
-            bg={theme.colors.backgroundSecondary}
-            alignItems={'center'}
-            flexDirection={'column'}
-          >
+        <Container>
             <Navbar />
-            <Flex
-              width={'80%'}
-              height={'20vh'}
-              bg={'#fff'}
-              mt={'2vh'}
-              borderRadius={'20px'}
-            >
-              <Flex
-                flexDirection={'column'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                width={'100%'}
-              >
-                <Text color={'#202020'} fontSize={['1rem', '1.2rem']}>Dinero disponible</Text>
-                <Text color={'#202020'} fontSize={['1.2rem', '1.5rem']}>{user.balance === null ? 0 : user.balance}</Text>
-              </Flex>
+
+
+
+
+
+
+            {/* User Actions */}
+           
+            <Flex justifyContent={'center'} borderBottom={'4px solid black'} m={'2vh'}>
+              <Text fontSize={'4xl'} color={'#000'}>Some actions!.</Text>
             </Flex>
-            <Flex
-              width={'80%'}
-              height={'20vh'}
-              bg={'#fff'}
+
+
+            <Grid
+              autoFlow={'column'}
+              width={'100%'}
+              justifyContent={'center'}
+              gap={'10vw'}
+              my={'5vh'}
+            >
+                
+                <UserAction to='addmoney' icon='money' text='Money'/>
+
+                <UserAction to='spent' icon='send' text='Spent'/>
+            </Grid>
+
+            
+
+
+
+
+
+
+
+
+            {/* Transactions */}
+
+            <Flex justifyContent={'center'} borderTop={'4px solid black'} borderBottom={'4px solid black'} m={'2vh'}>
+              <Text fontSize={'4xl'} color={'#000'}>Your Activity.</Text>
+            </Flex>
+
+            
+             <Flex
+              width={'100%'}
+              bg={'#ebebeb'}
               mt={'2vh'}
               borderRadius={'20px'}
+              height={'60%'}
+              mb={'5vh'}
             >
+             
               <Grid
-                autoFlow={'column'}
-                width={'100%'}
-                height={'100%'}
-                alignItems={'center'}
-                ml={'20%'}
+                w={'100%'}
               >
-                <Box width='20%' h={'20%'} bg={'#000'}>
-
-                </Box>
-                <Box width='20%' h={'20%'} bg={'#000'}>
-
-                </Box>
+                <Activity activity={activity}/>
               </Grid>
             </Flex>
-
-
-
-
-          </Flex>
-        </Grid>
+      </Container>
     </>
   )
 }

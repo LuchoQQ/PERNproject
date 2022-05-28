@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import { useLoggedContext } from './context/Context';
 import Register from './pages/Register';
+import AddMoney from './pages/AddMoney';
+import Activity from './pages/Activity';
 
 function App() {
   
@@ -14,6 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={isLogged ? <HomePage /> : <Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/addmoney" element={<AddMoney />} />
+        <Route path="/activity" element={<Activity />} />
       </Routes> 
       
     </>
