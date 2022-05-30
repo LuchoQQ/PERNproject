@@ -28,13 +28,10 @@ const Activity = (activity) => {
     const arr = []
 
     function reverse(obj) {
-       if (obj.length !== 0) {
-            for (let i = obj.length - 1; i >= 0; i--) {
-            arr.push(obj[i])
-            }
-        }
+        obj.map(item => {
+            arr.push(item)
+        })
     }
-    
     reverse(activity.activity)
 
 

@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Grid, Flex, Box, Icon, Button } from '@chakra-ui/react'
-import { useTheme } from '@chakra-ui/react'
+import { Text, Grid, Flex} from '@chakra-ui/react'
 import Header from '../layouts/Header'
 import { useUserContext } from '../context/Context'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 import Container from '../components/Container'
 import UserAction from '../components/UserAction'
 import Activity from './Activity'
 
 const HomePage = () => {
-  const theme = useTheme()
+
+
   const user = useUserContext()
-  const navigate = useNavigate()
   const [activity, setActivity] = useState([])
 
 
   useEffect(() => {
     axios({
       method: 'get',
-      url:  `http://localhost:3005/users/${user.id}/activity`
+      url:  `http://localhost:3005/users/${user.id}/activity/10`
     }).then(res => {
       setActivity(res.data)
   })}, [])
-
 
   return (
     <>
@@ -59,7 +56,7 @@ const HomePage = () => {
             {/* Activity Historial */}
 
             <Flex justifyContent={'center'} borderTop={'4px solid black'} borderBottom={'4px solid black'} m={'2vh'}>
-              <Text fontSize={'4xl'} color={'#000'}>Your Activity.</Text>
+              <Text fontSize={'4xl'} color={'#000'}>Last 10 activities.</Text>
             </Flex>  
 
             

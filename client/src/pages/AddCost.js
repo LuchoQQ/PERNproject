@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, Grid, Input, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, FormControl, Grid, Input, Text } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import axios from 'axios'
 import React, { useState } from 'react'
@@ -16,7 +16,8 @@ const AddCost = () => {
     
     const [description, setDescription] = useState('')
     const [amount, setAmount] = useState('')
-   
+    const [error, setError] = useState('')
+
     const onDescription = (e) => {
         setDescription(e.target.value)
     }
@@ -33,23 +34,21 @@ const AddCost = () => {
         const data = {
             transaction: "egress",
             description: description,
-            from: userContext.name,
             amount: amount,
-            user_id: userContext.id,
+            user_id: userContext.id
         }
 
-        axios({
+        //post activity to database
+        const result = axios({
             method: 'post',
             url: 'http://localhost:3005/activity',
-            data: data,
-        }).then(() => {
-            updateUser({
-                ...userContext,
-                balance: parseInt(userContext.balance) - parseInt(amount)
-                
-            })
-            navigate(-1)
-            
+            data: data
+        }).then((res) => {
+            setError(res.data.error)
+            if (!res.data.error) {
+                updateUser({...userContext, balance: userContext.balance - parseInt(amount)})
+                navigate('/')
+            }
         })
     }
 
@@ -88,6 +87,15 @@ const AddCost = () => {
                             <Input type='submit'></Input>
                         </FormControl>
                     </form>
+                    <Box
+                        color={error ? 'red' : 'green'}
+                        justify={'center'}
+                        width={'30%'}
+                        mx='auto'
+                        mt='5vh'
+                    >
+                        <Text justifySelf='center'>{error}</Text>
+                    </Box>
             </Flex>
           </Flex>
         </Grid>

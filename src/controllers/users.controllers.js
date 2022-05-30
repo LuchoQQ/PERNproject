@@ -1,5 +1,16 @@
 import { User } from "../models/User.js";
 import { Activity } from "../models/Activity.js";
+import Joi from "joi";
+
+const schema = Joi.object().keys({
+	  name: Joi.string().required(),
+	  email: Joi.string().email().required(),
+	  password: Joi.string().required(),
+	  id: Joi.string().required(),
+	  balance: Joi.number().required(),
+});
+
+
 export const getUsers = async (req, res) => {
 	try {
 		const users = await User.findAll();
@@ -32,17 +43,22 @@ export const getUser = async (req, res) => {
 export const createUser = async (req, res) => {
 	try {
 		const { name, email, password } = req.body;
+
 		const newUser = {
 			id: Math.floor(100000 + Math.random() * 900000).toString(),
 			name,
 			email,
 			password,
-		};
+			balance: 0
 
-		await User.create(newUser);
-		res.json({
-			message: "User created successfully",
-		});
+		};
+		const result = schema.validate(newUser);
+		if (result.error) {
+			res.status(400).json({ msg: result.error.details[0].message });
+		} else {
+			const user = await User.create(newUser);
+			res.json(user);
+		}
 	} catch (error) {
 		res.status(500).json({
 			msg: "Error creating user",
@@ -55,24 +71,26 @@ export const updateUser = async (req, res) => {
 	try {
         const { id } = req.params;
         const { name, email, password, balance } = req.body;
-        const updatedUser = {
-            name,
-            email,
-            password,
-			balance,
-        };
-
-        await User.update(updatedUser, { where: { id: id } });
-        res.json({
-            message: "User updated successfully",
-        });
-    } catch (error) {
-        res.status(500).json({
-            msg: "Error updating user",
-            reason: error.message,
-        });
-    }
-};
+        const user = await User.findOne({ where: { id: id } });
+		if (!user) {
+			res.status(404).json({ msg: "User not found" });
+		} else {
+			const newUser = {
+				name,
+				email,
+				password,
+				balance,
+			};
+			await user.update(newUser);
+			res.json(user);
+		}
+	} catch (error) {
+		res.json({
+			status: "error",
+			message: error.message,
+		});
+	}
+}
 
 export const deleteUser = async (req, res) => {
 	try {
@@ -104,7 +122,7 @@ export const getUserActivity = async (req, res) => {
 			res.json(result);
 		}
 	} catch (error) {
-		console.log('error', error)
+		throw error;
 	}
 }
 
@@ -126,5 +144,20 @@ export const verifyUser = async (req, res) => {
 			status: "500",
 			message: error.message,
 		});
+	}
+}
+
+export const getTenActivity = async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		const result = await Activity.findAll({ where: { user_id: id }, limit: 10 })
+		if (result.length === 0) {
+			res.json([]);
+		} else {
+			res.json(result.reverse());
+		}
+	} catch (error) {
+		throw error;
 	}
 }

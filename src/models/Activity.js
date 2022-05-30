@@ -22,6 +22,9 @@ export const Activity = sequelize.define('activity', {
     amount: {
         type: DataTypes.INTEGER,
     },
+    category: {
+        type: DataTypes.STRING,
+    },
 }, {
     timestamps: true
 })

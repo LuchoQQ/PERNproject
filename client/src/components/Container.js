@@ -8,11 +8,11 @@ const Container = ({ children }) => {
   return (
     <>
         <Grid
-          width={'100vw'}
+          width={'100%'}
           bg={theme.colors.backgroundSecondary}
           fontFamily={theme.fonts.text.Dongle}
           justifyContent={'center'}
-          height={'100vh'}
+          height={'100%'}
         >
           {/* CONTAINER */}
           <Flex

@@ -1,4 +1,17 @@
 import { Activity } from '../models/Activity.js'
+import Joi from 'joi'
+
+const schema = Joi.object().keys({
+        id: Joi.string().required(),
+        transaction: Joi.string().required(),
+        description: Joi.string().required().max(15),
+        from: Joi.string(),
+        to: Joi.string(),
+        amount: Joi.number().required(),
+        category: Joi.string(),
+        user_id: Joi.required(),
+})
+
 
 export const getActivities = async (req, res) => {
     try {
@@ -30,22 +43,31 @@ export const getActivity = async (req, res) => {
 
 export const createActivity = async (req, res) => {
     try {
-        
-        const { transaction, description, from, to, amount, user_id} = req.body;
-        const newActivity = await Activity.create({
-            id: Math.floor(Math.random() * 1000000000),
+        const { transaction, description, from, to, amount, category, user_id } = req.body;
+        const newActivity = {
+            id: Math.floor(100000 + Math.random() * 900000).toString(),
             transaction,
             description,
             from,
             to,
             amount,
+            category,
             user_id
-        });
-        res.send(newActivity);
-    } catch (error) {
-        throw new Error(error);
-    }
+        }
 
+        const result = schema.validate(newActivity);
+        if (result.error) {
+            return res.json({ error: result.error.details[0].message });
+        } else {
+            const activity = await Activity.create(newActivity);
+            res.send(activity);
+        }
+    } catch (error) {
+        res.json({
+            status: "error",
+            message: error.message,
+        });
+    }
 }
 
 export const updateActivity = async (req, res) => {
