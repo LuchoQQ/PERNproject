@@ -7,7 +7,6 @@ const Activity = (activity) => {
     const arr = []
 
     function reverse(obj) {
-        const newObj = {}
         obj.map(item => {
             arr.push(item)
         })

@@ -48,9 +48,10 @@ const AddMoney = () => {
             }
         }).then(() => {
             updateUser({
+                ...userContext,
                 balance: parseInt(userContext.balance) + parseInt(amount)
             })
-            navigate('/')
+            navigate(-1)
         })
     }
 
