@@ -3,7 +3,7 @@ import { Flex, FormControl, Grid, Input, Text } from "@chakra-ui/react";
 import { useTheme } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import Navbar from './Navbar'
 const RegisterLayout = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
@@ -69,9 +69,9 @@ const RegisterLayout = () => {
 					height={"100vh"}
 					bg={theme.colors.backgroundSecondary}
 					alignItems={"center"}
-					justifyContent={"center"}
 				>
-					<Text fontSize={"3xl"} mb={"10vh"}>
+					<Navbar />
+					<Text fontSize={"3xl"} my={"10vh"}>
 						Create a new user!
 					</Text>
 					<FormControl display={"grid"} gap={"4vh"} w={"60%"}>

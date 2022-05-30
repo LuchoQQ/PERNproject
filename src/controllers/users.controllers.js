@@ -99,7 +99,7 @@ export const getUserActivity = async (req, res) => {
 	try {
 		const result = await Activity.findAll({ where: { user_id: id } })
 		if (result.length === 0) {
-			res.send('No activities found');
+			res.json([]);
 		} else {
 			res.json(result);
 		}

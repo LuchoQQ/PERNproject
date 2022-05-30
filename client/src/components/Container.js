@@ -12,6 +12,7 @@ const Container = ({ children }) => {
           bg={theme.colors.backgroundSecondary}
           fontFamily={theme.fonts.text.Dongle}
           justifyContent={'center'}
+          height={'100vh'}
         >
           {/* CONTAINER */}
           <Flex

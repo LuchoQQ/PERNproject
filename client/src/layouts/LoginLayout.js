@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Flex, FormControl, Grid, Input, Text } from "@chakra-ui/react";
+import { Button, Flex, FormControl, Grid, Input, Link, Text } from "@chakra-ui/react";
 import { useTheme } from "@chakra-ui/react";
 import { useUpdateUserContext } from "../context/Context";
 
@@ -62,14 +62,14 @@ const LoginLayout = () => {
 						</FormControl>
 						</form>
 					</Grid>
-					<Text
+					<Link href='/register'
 						mb={'10vh'}
 						_hover= {{
 							color: theme.colors.primary,
 						}}
 					>
 						Register here.
-					</Text>
+					</Link>
 					{
 						
 					}

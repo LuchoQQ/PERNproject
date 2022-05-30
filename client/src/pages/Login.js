@@ -27,8 +27,6 @@ const Login = () => {
 				userContext(true)
 				navigate("/")
 			})
-
-			
 		}
 	}, [user])
 

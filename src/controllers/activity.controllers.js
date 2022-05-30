@@ -30,6 +30,7 @@ export const getActivity = async (req, res) => {
 
 export const createActivity = async (req, res) => {
     try {
+        
         const { transaction, description, from, to, amount, user_id} = req.body;
         const newActivity = await Activity.create({
             id: Math.floor(Math.random() * 1000000000),

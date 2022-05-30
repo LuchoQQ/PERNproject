@@ -28,10 +28,8 @@ const HomePage = () => {
   return (
     <>
         <Container>
-            <Header mb='20vh'/>
 
-
-
+            <Header/>
 
 
 
@@ -49,26 +47,20 @@ const HomePage = () => {
               gap={'10vw'}
               my={'5vh'}
             >
-                
                 <UserAction to='addmoney' icon='money' text='Add income'/>
 
                 <UserAction to='spent' icon='send' text='Add cost'/>
             </Grid>
 
-            
+      
 
 
 
-
-
-
-
-
-            {/* Transactions */}
+            {/* Activity Historial */}
 
             <Flex justifyContent={'center'} borderTop={'4px solid black'} borderBottom={'4px solid black'} m={'2vh'}>
               <Text fontSize={'4xl'} color={'#000'}>Your Activity.</Text>
-            </Flex>
+            </Flex>  
 
             
              <Flex
@@ -76,7 +68,6 @@ const HomePage = () => {
               bg={'#ebebeb'}
               mt={'2vh'}
               borderRadius={'20px'}
-              height={'60%'}
               mb={'5vh'}
             >
              
@@ -86,6 +77,11 @@ const HomePage = () => {
                 <Activity activity={activity} />
               </Grid>
             </Flex>
+
+
+
+
+            
       </Container>
     </>
   )

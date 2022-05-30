@@ -32,6 +32,8 @@ const AddMoney = () => {
             amount: amount,
             user_id: userContext.id
         }
+        console.log(data)
+
         //post activity
         axios({
             method: 'post',
@@ -44,12 +46,12 @@ const AddMoney = () => {
             method: 'put',
             url: `http://localhost:3005/users/${userContext.id}`,
             data: {
-                balance: parseInt(userContext.balance) + parseInt(amount)   
+                balance: userContext.balance + parseInt(amount)
             }
         }).then(() => {
             updateUser({
                 ...userContext,
-                balance: parseInt(userContext.balance) + parseInt(amount)
+                balance: userContext.balance + parseInt(amount)
             })
             navigate(-1)
         })
