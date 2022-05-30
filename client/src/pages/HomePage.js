@@ -11,22 +11,36 @@ const HomePage = () => {
 
 
   const user = useUserContext()
+
   const [activity, setActivity] = useState([])
-
-
+  const [balance, setBalance] = useState(0)
+  
   useEffect(() => {
     axios({
       method: 'get',
       url:  `http://localhost:3005/users/${user.id}/activity/10`
-    }).then(res => {
-      setActivity(res.data)
-  })}, [])
+      }).then(res => {
+        setActivity(res.data)
+      })
+  }, [])
 
-  return (
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url:  `http://localhost:3005/users/${user.id}/activity/amount/`
+      }).then(res => {
+        if (res.data.length === 0) {
+          setBalance(0)
+        } else {
+          setBalance(res.data)
+        }
+      })
+    }, [])
+    return (
     <>
         <Container>
 
-            <Header/>
+            <Header balance={balance}/>
 
 
 

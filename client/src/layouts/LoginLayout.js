@@ -55,9 +55,9 @@ const LoginLayout = () => {
 					>
 						<form onSubmit={onSubmit}>
 						<FormControl display={'grid'} gap={'4vh'}>
-							<Input placeholder='User' variant={'flushed'} type='name' focusBorderColor={theme.colors.primary} onChange={onChangeName}/>
-							<Input placeholder='Password'variant={'flushed'} type='password'  focusBorderColor={theme.colors.primary} onChange={onChangePassword}/>
-							<Input type={'submit'} mt={'5vh'} size={'lg'} _hover={{ bg: theme.colors.primary }} focusBorderColor='none' />
+							<Input placeholder='User' variant={'flushed'} type='name' focusBorderColor={theme.colors.primary} onChange={onChangeName} id='name'/>
+							<Input placeholder='Password'variant={'flushed'} type='password'  focusBorderColor={theme.colors.primary} onChange={onChangePassword} id='email'/>
+							<Input type={'submit'} mt={'5vh'} size={'lg'} _hover={{ bg: theme.colors.primary }} focusBorderColor='none'/>
 						</FormControl>
 						</form>
 					</Grid>

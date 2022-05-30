@@ -23,9 +23,7 @@ export const User = sequelize.define(
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-		balance: {
-			type: DataTypes.INTEGER,
-		}
+		
 	},
 	{
 		timestamps: true,

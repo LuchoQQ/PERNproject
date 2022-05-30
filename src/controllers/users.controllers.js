@@ -7,7 +7,6 @@ const schema = Joi.object().keys({
 	  email: Joi.string().email().required(),
 	  password: Joi.string().required(),
 	  id: Joi.string().required(),
-	  balance: Joi.number().required(),
 });
 
 
@@ -49,8 +48,6 @@ export const createUser = async (req, res) => {
 			name,
 			email,
 			password,
-			balance: 0
-
 		};
 		const result = schema.validate(newUser);
 		if (result.error) {
@@ -73,7 +70,7 @@ export const createUser = async (req, res) => {
 export const updateUser = async (req, res) => {
 	try {
         const { id } = req.params;
-        const { name, email, password, balance } = req.body;
+        const { name, email, password } = req.body;
         const user = await User.findOne({ where: { id: id } });
 		if (!user) {
 			res.status(404).json({ msg: "User not found" });
@@ -82,7 +79,6 @@ export const updateUser = async (req, res) => {
 				name,
 				email,
 				password,
-				balance,
 			};
 			await user.update(newUser);
 			res.json(user);
@@ -160,6 +156,31 @@ export const getTenActivity = async (req, res) => {
 		} else {
 			res.json(result.reverse());
 		}
+	} catch (error) {
+		throw error;
+	}
+
+}
+
+export const getBalance = async (req, res) => {
+	const { id } = req.params;
+	try {
+		const result = await Activity.findAll({ where: { user_id: id }  })		
+		let balance = 0;
+
+		 if (result.length === 0) {
+			balance = 0;
+		} else {
+			result.map((item) => {
+				if (item.transaction === "ingress") {
+					balance += item.amount
+				} else {
+					balance -= item.amount
+				}
+			})
+		}
+		
+		return res.json(balance);
 	} catch (error) {
 		throw error;
 	}

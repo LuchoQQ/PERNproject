@@ -41,7 +41,6 @@ const RegisterLayout = () => {
                 data: user,
             }).then((res) => {
 				if (res.data.message !== undefined) {
-					console.log(res.data.message)
 					setError(res.data.message);
 				} else {
 					navigate("/");
