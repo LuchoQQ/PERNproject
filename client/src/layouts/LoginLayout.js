@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Flex, FormControl, Grid, Input, Link, Text } from "@chakra-ui/react";
+import { Flex, FormControl, Grid, Input, Link, Text } from "@chakra-ui/react";
 import { useTheme } from "@chakra-ui/react";
 import { useUpdateUserContext } from "../context/Context";
 

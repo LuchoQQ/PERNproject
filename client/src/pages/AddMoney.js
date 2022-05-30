@@ -35,7 +35,7 @@ const AddMoney = () => {
         }
 
         //post activity to database
-        const result = axios({
+        axios({
             method: 'post',
             url: 'http://localhost:3005/activity',
             data: data  
