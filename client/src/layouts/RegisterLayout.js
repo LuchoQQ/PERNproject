@@ -8,7 +8,7 @@ const RegisterLayout = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState();
-	const [confirmPassword, setConfirmPassword] = useState();
+	const [error, setError] = useState("");
 
     const theme = useTheme();
 
@@ -26,9 +26,6 @@ const RegisterLayout = () => {
 		setPassword(e.target.value);
 	};
 
-	const onChangeConfirmPassword = (e) => {
-		setConfirmPassword(e.target.value);
-	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -36,23 +33,23 @@ const RegisterLayout = () => {
             name,
             email,
             password,
-            confirmPassword,
         };
 
-		if (password === confirmPassword) {
             axios({
                 method: "post",
                 url: "http://localhost:3005/users",
                 data: user,
-            }).then(() => {
-                navigate("/");
+            }).then((res) => {
+				if (res.data.message !== undefined) {
+					console.log(res.data.message)
+					setError(res.data.message);
+				} else {
+					navigate("/");
+				}
             }).catch((err) => {
                 throw err;
             });
 
-		} else {
-			throw new Error("Passwords do not match");
-		}
 	};
 	return (
 		<>
@@ -100,14 +97,6 @@ const RegisterLayout = () => {
 							onChange={onChangePassword}
 						/>
 						<Input
-							placeholder="Confirm Pasword"
-							variant={"flushed"}
-							type="password"
-							id="confirm"
-							focusBorderColor={theme.colors.primary}
-							onChange={onChangeConfirmPassword}
-						/>
-						<Input
 							type={"submit"}
 							mt={"5vh"}
 							size={"lg"}
@@ -116,7 +105,11 @@ const RegisterLayout = () => {
 							onClick={onSubmit}
 						/>
 					</FormControl>
+				<Text
+					color={'red'}
+				>{error}</Text>
 				</Flex>
+
 			</Grid>
 		</>
 	);

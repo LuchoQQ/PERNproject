@@ -21,7 +21,6 @@ const LoginLayout = () => {
 		setPassword(e.target.value)
 	}
 	
-
 	const onSubmit = (e) => {
 		e.preventDefault()
 		setUser({ name, password });
@@ -70,9 +69,6 @@ const LoginLayout = () => {
 					>
 						Register here.
 					</Link>
-					{
-						
-					}
 				</Flex>
 			</Grid>
 		</>

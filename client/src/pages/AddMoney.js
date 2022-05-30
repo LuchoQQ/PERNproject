@@ -40,7 +40,6 @@ const AddMoney = () => {
             url: 'http://localhost:3005/activity',
             data: data  
         }).then((res) => {
-            console.log(res.data.error)
             setError(res.data.error)
             if (!res.data.error) {
                 updateUser({...userContext, balance: userContext.balance + parseInt(amount)})

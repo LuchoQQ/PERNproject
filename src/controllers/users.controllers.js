@@ -54,7 +54,10 @@ export const createUser = async (req, res) => {
 		};
 		const result = schema.validate(newUser);
 		if (result.error) {
-			res.status(400).json({ msg: result.error.details[0].message });
+			res.json({
+				status: "error",
+				message: result.error.details[0].message,
+			})
 		} else {
 			const user = await User.create(newUser);
 			res.json(user);
