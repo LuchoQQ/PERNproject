@@ -1,12 +1,14 @@
-import { Flex, FormControl, Grid, Input, Text } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Button, Flex, FormControl, Grid, Input, Text } from '@chakra-ui/react'
 import { useTheme } from '@emotion/react'
 import axios from 'axios'
-import { useUpdateUserContext, useUserContext } from '../context/Context'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Container from '../components/Container'
+import { useUpdateUserContext, useUserContext } from '../context/Context'
 import Navbar from '../layouts/Navbar'
 
-const AddMoney = () => {
+const AddCost = () => {
+
     const theme = useTheme()
     const userContext = useUserContext()
     const updateUser = useUpdateUserContext()
@@ -19,43 +21,40 @@ const AddMoney = () => {
         setDescription(e.target.value)
     }
 
-    const onAmount = (e) => {
+    const onChangeAmount = (e) => {
         setAmount(e.target.value)
     }
 
-    
+
+
     const onSubmit = (e) => {
         e.preventDefault()
+
         const data = {
-            transaction: "ingress",
+            transaction: "egress",
             description: description,
+            from: userContext.name,
             amount: amount,
-            user_id: userContext.id
+            user_id: userContext.id,
         }
-        //post activity
+
         axios({
             method: 'post',
             url: 'http://localhost:3005/activity',
             data: data,
-
-        })
-        //update balance user
-        axios({
-            method: 'put',
-            url: `http://localhost:3005/users/${userContext.id}`,
-            data: {
-                balance: parseInt(userContext.balance) + parseInt(amount)   
-            }
         }).then(() => {
             updateUser({
-                balance: parseInt(userContext.balance) + parseInt(amount)
+                balance: parseInt(userContext.balance) - parseInt(amount)
             })
             navigate('/')
         })
     }
 
+
+
   return (
-    <Grid
+    <Container>
+        <Grid
           width={'100vw'}
           height={'100vh'}
           bg={theme.colors.background}
@@ -77,19 +76,20 @@ const AddMoney = () => {
                 flexDir={'column'}
                 mt={'5vh'}
             >
-                <Text justifyContent={'center'} mb={'10vh'} fontSize={'4xl'}>Add a income!</Text>
+                <Text justifyContent={'center'} mb={'10vh'} fontSize={'4xl'}>Send Money!</Text>
 
                     <form onSubmit={onSubmit}>
                         <FormControl style={{ display: 'grid', gap: '10vh' }}>
-                            <Input placeholder='Income description' id='concept' onChange={onDescription} variant='flushed'></Input>
-                            <Input placeholder='Amount' id='amount' onChange={onAmount} variant='flushed'></Input>
+                            <Input placeholder='Cost description' id='concept' onChange={onDescription} variant='flushed'></Input>
+                            <Input placeholder='Amount' id='amount' onChange={onChangeAmount} variant='flushed'></Input>
                             <Input type='submit'></Input>
                         </FormControl>
                     </form>
             </Flex>
           </Flex>
         </Grid>
+    </Container>
   )
 }
 
-export default AddMoney
+export default AddCost

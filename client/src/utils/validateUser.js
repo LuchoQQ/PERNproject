@@ -9,11 +9,9 @@ const validateUser = async (userDB, userClient, callback) => {
 		} else if (userDB.name !== userClient.name) {
 			callback(false);
 		} else if (userDB.password !== userClient.password) {
-			console.log("Invalid password");
 			callback(false);
 		}
 	} else {
-		console.log("user not found");
 		return false;
 	}
 };

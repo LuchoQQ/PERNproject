@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Text, Grid, Flex, Box, Icon, Button } from '@chakra-ui/react'
 import { useTheme } from '@chakra-ui/react'
-import Navbar from '../layouts/Navbar'
+import Header from '../layouts/Header'
 import { useUserContext } from '../context/Context'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -15,9 +15,6 @@ const HomePage = () => {
   const navigate = useNavigate()
   const [activity, setActivity] = useState([])
 
-  const handleClick = () => {
-    navigate('/activity')
-  }
 
   useEffect(() => {
     axios({
@@ -31,7 +28,7 @@ const HomePage = () => {
   return (
     <>
         <Container>
-            <Navbar />
+            <Header mb='20vh'/>
 
 
 
@@ -53,9 +50,9 @@ const HomePage = () => {
               my={'5vh'}
             >
                 
-                <UserAction to='addmoney' icon='money' text='Money'/>
+                <UserAction to='addmoney' icon='money' text='Add income'/>
 
-                <UserAction to='spent' icon='send' text='Spent'/>
+                <UserAction to='spent' icon='send' text='Add cost'/>
             </Grid>
 
             
@@ -86,7 +83,7 @@ const HomePage = () => {
               <Grid
                 w={'100%'}
               >
-                <Activity activity={activity}/>
+                <Activity activity={activity} />
               </Grid>
             </Flex>
       </Container>

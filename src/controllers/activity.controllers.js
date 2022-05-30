@@ -10,7 +10,7 @@ export const getActivities = async (req, res) => {
         }
         
     } catch (error) {
-        console.log(error)
+        throw new Error(error);
     }
 }
 
@@ -24,7 +24,7 @@ export const getActivity = async (req, res) => {
             res.send(activity);
         }
     } catch (error) {
-        console.log(error)
+        throw new Error(error);
     }
 }
 
@@ -42,7 +42,7 @@ export const createActivity = async (req, res) => {
         });
         res.send(newActivity);
     } catch (error) {
-        console.log(error)
+        throw new Error(error);
     }
 
 }
@@ -65,7 +65,7 @@ export const updateActivity = async (req, res) => {
             res.send(updatedActivity);
         }
     } catch (error) {
-        console.log(error)
+        throw new Error(error);
     }
 }
 
@@ -80,6 +80,7 @@ export const deleteActivity = async (req, res) => {
             res.send(activity);
         }
     } catch (error) {
-        console.log(error)
+        throw new Error(error);
     }
 }
+

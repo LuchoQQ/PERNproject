@@ -9,7 +9,6 @@ const Container = ({ children }) => {
     <>
         <Grid
           width={'100vw'}
-          height={'auto'}
           bg={theme.colors.backgroundSecondary}
           fontFamily={theme.fonts.text.Dongle}
           justifyContent={'center'}

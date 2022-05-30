@@ -16,22 +16,18 @@ const RegisterLayout = () => {
 
 	const onChangeName = (e) => {
 		setName(e.target.value);
-		console.log(name);
 	};
 
 	const onChangeEmail = (e) => {
 		setEmail(e.target.value);
-		console.log(email);
 	};
 
 	const onChangePassword = (e) => {
 		setPassword(e.target.value);
-		console.log(password);
 	};
 
 	const onChangeConfirmPassword = (e) => {
 		setConfirmPassword(e.target.value);
-		console.log(confirmPassword);
 	};
 
 	const onSubmit = (e) => {
@@ -44,7 +40,6 @@ const RegisterLayout = () => {
         };
 
 		if (password === confirmPassword) {
-			console.log("success");
             axios({
                 method: "post",
                 url: "http://localhost:3005/users",
@@ -52,11 +47,11 @@ const RegisterLayout = () => {
             }).then(() => {
                 navigate("/");
             }).catch((err) => {
-                console.log(err);
+                throw err;
             });
 
 		} else {
-			console.log("fail");
+			throw new Error("Passwords do not match");
 		}
 	};
 	return (

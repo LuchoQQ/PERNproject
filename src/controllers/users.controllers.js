@@ -104,7 +104,7 @@ export const getUserActivity = async (req, res) => {
 			res.json(result);
 		}
 	} catch (error) {
-		console.log(error)
+		throw new Error(error);
 	}
 }
 

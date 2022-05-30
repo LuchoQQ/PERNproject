@@ -29,7 +29,7 @@ const Login = () => {
 				updateContext(res.data)
 				userContext(true)
 				navigate("/")
-			}).catch(() => console.log('bad request'))
+			})
 
 			
 		}
